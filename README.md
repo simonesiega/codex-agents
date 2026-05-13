@@ -1,8 +1,10 @@
-<h2 align="center">
-  <img src="assets/logos/codex-agents-logo-name.svg" alt="codex-agents logo" width="400" style="margin-top: -60px;" />
-  <br>
-  <p align="center" style="margin-top: -140px;"><strong>Reusable <code>AGENTS.md</code> workflow packages for Codex.</strong></p>
-</h2>
+<p align="center">
+  <img src="assets/logos/codex-agents-logo-name.svg" alt="codex-agents logo" width="400" />
+</p>
+
+<p align="center">
+  <strong>Drop-in <code>AGENTS.md</code> workflow packages and <code>SKILL.md</code> exports for Codex.</strong>
+</p>
 
 <p align="center">
   <a href="https://github.com/simonesiega/codex-agents/stargazers"><img src="https://img.shields.io/github/stars/simonesiega/codex-agents?style=social" alt="GitHub stars" /></a>
@@ -13,65 +15,91 @@
 </p>
 
 <p align="center">
-  <a href="agents/codebase-review-commit/README.md">Workflow packages</a> ·
-  <a href="agents/codebase-review-commit/docs/usage.md">Usage guide</a> ·
-  <a href="docs/agent-workflow-packages.md">Authoring docs</a>
-</p>
-
-<p align="center">
   <img src="assets/how-it-works.png" alt="How codex-agents works" width="800" />
 </p>
 
 
 ## Overview
 
-`codex-agents` is a collection of copy-ready `AGENTS.md` workflow packages for Codex.
+`codex-agents` provides reusable `AGENTS.md` workflow packages and portable `SKILL.md` workflows for Codex.
 
-The idea is simple: instead of putting every instruction into one large always-loaded file, each package gives Codex a small router and a set of focused task files. Codex starts from `AGENTS.md`, understands the requested workflow, and follows only the instructions needed for that task. This makes the setup easier to reuse, easier to maintain, and more predictable across real repositories.
+The repository is built around a simple idea: Codex works better when instructions are focused, scoped, and easy to route. Instead of putting every rule into one large always-loaded file, each workflow gives Codex a clear entry point and a set of task-specific instruction files.
+
+Use `agents/` when you want copy-ready `AGENTS.md` packages that can be dropped into a real repository. Use `skills/` when you want portable Codex skill versions of selected workflows.
+
+The goal is to make Codex workflows easier to reuse, easier to maintain, and more predictable across real software projects.
 
 ## Why use this repo
 
-Most Codex setups start with one simple `AGENTS.md` file. Over time, that file often grows into a long mix of review rules, commit rules, audit instructions, documentation preferences, safety constraints, project conventions, and one-off notes. The result is harder to control: Codex receives more context than it needs, workflows become less precise, and small changes can affect unrelated tasks.
+Most Codex setups start with one simple `AGENTS.md` file. Over time, that file can become a long mix of review rules, commit rules, audit instructions, documentation preferences, safety constraints, project conventions, and one-off notes.
 
-`codex-agents` gives you a cleaner starting point. <br>
+That makes the workflow harder to control: Codex receives more context than it needs, task boundaries become less precise, and small edits can affect unrelated behavior.
+
+`codex-agents` gives you a cleaner starting point for building structured Codex workflows.
+
 It helps you use Codex with:
 
-- <strong>fewer tokens</strong> spent on unrelated instructions
-- <strong>faster setup</strong> through ready-to-copy workflow packages
-- clearer separation between review, audit, and commit behavior
-- <strong>more predictable outputs</strong> for each engineering task
-- reusable templates that can be copied across repositories
-- safer defaults for validation, Git operations, and task boundaries
-- easier maintenance because each workflow lives in its own focused file
+- **fewer tokens** spent on unrelated instructions
+- **copy-ready workflow packages** for real repositories
+- **portable skill workflows** for reusable task-specific behavior
+- clearer separation between review, audit, commit, and documentation tasks
+- more predictable outputs for each engineering workflow
+- safer defaults for validation, Git operations, and scope boundaries
+- easier maintenance through small, focused instruction files
 
 ## Available packages
+
+### Agent workflow packages
+
+Copy-ready `AGENTS.md` packages that can be dropped into real repositories.
 
 | Package | Use it when you need | Templates | Start here |
 |---|---|---|---|
 | [`codebase-review-commit`](agents/codebase-review-commit/) | Code review, deep audits, commit messages, and commit splitting | `full`, `review`, `commit` | [`README`](agents/codebase-review-commit/README.md) · [`Usage`](agents/codebase-review-commit/docs/usage.md) |
 
+### Codex skills
+
+Reusable `SKILL.md` workflows for task-specific Codex behavior.
+
+| Skill | Use it when you need | References | Start here |
+|---|---|---|---|
+| [`codebase-review-commit`](skills/codebase-review-commit/) | Review, audit, and commit guidance as a Codex skill | `REVIEW.md`, `REVIEW_DEEP.md`, `COMMIT.md` | [`SKILL.md`](skills/codebase-review-commit/SKILL.md) |
+
 ## Quick start
 
-Copy one template pack into your target repository:
+Choose the format that fits your workflow.
+
+### Use an agent package
+
+Copy an `AGENTS.md` template pack into your target repository:
 
 ```bash
 cp agents/<package-name>/templates/<template-name>/* /path/to/project/
 ```
 
-Then open Codex inside your target repository and ask for the workflow you need.
-Each package defines its own commands, templates, and workflow files. See the package README and usage guide for the available options.
+Then open Codex inside the target repository and ask for the workflow you need.
 
-For Windows PowerShell and package-specific commands, see the `<package-name>` usage guide.
+Each package defines its own templates, supported prompts, and focused instruction files. For package-specific details, read the package `README.md` and usage guide.
+
+### Use a Codex skill
+
+Copy the skill folder into the skills directory used by your Codex setup:
+
+```bash
+cp -r skills/<skill-name> /path/to/codex/skills/
+```
+
+Then use Codex with a request that matches the skill, such as a review, audit, or commit workflow.
 
 ## Usage example
 
-To use the `codebase-review-commit` package, copy the full template into your project:
+To use the `codebase-review-commit` agent package, copy the full template into your project:
 
 ```bash
 cp agents/codebase-review-commit/templates/full/* /path/to/project/
 ```
 
-Then ask Codex to review the changed code, suggest a commit message, split the changes into commits, and do a deep audit before committing:
+Then ask Codex for the workflow you need:
 
 ```txt
 review --changed
@@ -82,22 +110,31 @@ deep audit before commit
 
 Codex will start from the copied `AGENTS.md` router and load the focused workflow files only when they are relevant.
 
-For Windows PowerShell and package-specific commands, see the [codebase-review-commit usage guide](agents/codebase-review-commit/docs/usage.md).
+If you prefer the skill version, copy the skill package into the skills directory used by your Codex setup:
+
+```bash
+cp -r skills/codebase-review-commit /path/to/codex/skills/
+```
+
+The skill keeps the same review, audit, and commit logic in a compact `SKILL.md` package backed by focused references.
+
+For Windows PowerShell and package-specific commands, see the codebase-review-commit [usage guide](agents/codebase-review-commit/docs/usage.md).
 
 ## Repository structure
 
-The repository is organized around reusable workflow packages and shared documentation.
+The repository is organized around reusable agent packages, Codex skills, shared documentation, and visual assets.
 
 ```txt
 .
-├── agents/   # workflow packages
-├── assets/   # README images
-└── docs/     # shared package-authoring documentation
+├── agents/               # copy-ready AGENTS.md workflow packages
+├── skills/               # SKILL.md versions of selected workflows
+├── assets/               # README images and logos
+└── docs/                 # shared package-authoring documentation
 ```
 
 ## Package structure
 
-Each package is self-contained and follows the same general structure:
+Agent packages are self-contained and include documentation, examples, and copy-ready templates.
 
 ```txt
 package-name/
@@ -107,21 +144,28 @@ package-name/
 └── templates/            # copy-ready instruction packs
 ```
 
-Templates contain the actual files that can be copied into a target repository.
-A template can include one or more focused instruction files:
+Templates contain the files that can be copied into a target repository:
 
 ```txt
-AGENTS.md       # small router and package entry point
-REVIEW.md       # standard review behavior
-REVIEW_DEEP.md  # deeper audit behavior
-COMMIT.md       # commit message and commit-splitting behavior
+AGENTS.md                 # small router and package entry point
+REVIEW.md                 # standard review behavior
+REVIEW_DEEP.md            # deeper audit behavior
+COMMIT.md                 # commit message and commit-splitting behavior
 ```
 
-This structure keeps each workflow package easy to copy, easy to understand, and easy to maintain over time.
+Skill packages keep the runtime entry point and focused reference files, while examples and extended documentation stay in the related agent package.
+
+```txt
+skill-name/
+├── SKILL.md              # skill entry point
+└── references/           # focused supporting instruction files
+```
+
+This structure keeps agent packages easy to copy and understand, while keeping skills compact and focused for reusable Codex workflows.
 
 ## Shared documentation
 
-The `docs` directory contains repository-wide guidance for creating, maintaining, and extending workflow packages.
+The `docs` directory contains repository-wide guidance for creating, maintaining, and extending workflow packages and their related skill exports.
 
 | Document | Purpose |
 |---|---|
