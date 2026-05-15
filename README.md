@@ -169,7 +169,7 @@ The `docs` directory contains repository-wide guidance for creating, maintaining
 
 | Document | Purpose |
 |---|---|
-| [`agent-workflow-packages`](docs/agent-workflow-packages.md) | Defines the standard structure and boundaries for workflow packages |
+| [`agent-workflow-packages`](docs/agent-workflow-packages.md) | Defines the structure, files, templates, and maintenance rules for `agents/` workflow packages |
 | [`authoring-guidelines`](docs/authoring-guidelines.md) | Explains how to write focused Codex instruction files |
 | [`template-maintenance`](docs/template-maintenance.md) | Explains how to keep canonical files and copy-ready templates aligned |
 | [`safety-principles`](docs/safety-principles.md) | Defines the safety baseline used across all packages |
